@@ -6,6 +6,9 @@ export default function createProject(title, description, ...listObjects){
             this.list = [...listObjects];
         }
         
+        addObject(listObject){
+            this.list = [...this.list, listObject]
+        }
 
     }
     return new Project(title, description, ...listObjects)
