@@ -1,0 +1,24 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "To-do list project to continue practicing javascript principles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EljiahR/odin-to-do-list.git"
+  },
+  "author": "Elijah Reck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EljiahR/odin-to-do-list/issues"
+  },
+  "homepage": "https://github.com/EljiahR/odin-to-do-list#readme",
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
