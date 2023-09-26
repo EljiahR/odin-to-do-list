@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=("title","description","date","priorty",new class{constructor(t,i,e,s){this.title=t,this.description=i,this.dueDate=e,this.priority=s}setTitle(t){this.title=t}setDescription(t){this.description=t}setDueDate(t){this.dueDate=t}setPriority(t){this.priority=t}}("title","description","date","priorty"));t.setTitle("NEW TITLE"),console.log(t)})();
