@@ -1,7 +1,8 @@
 :root{
     --primary-color: #312e81;
     --secondary-color: #818cf8;
-    --background-color: #eef2ff
+    --background-color: #eef2ff;
+    --task-color: #b7bcee;
 }
 
 * {
@@ -42,6 +43,21 @@ a{
 #sidebar {
     background-color: var(--secondary-color);
     width: 20vw;
+}
+
+#content{
+    width: 80vw;
+    padding:10px 20px;
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.task{
+    width: 100%;
+    display: flex;
+    background-color: var(--task-color);
+    border-radius: 10px;
+    border: 2px solid black;
 }
 
 

@@ -6,17 +6,17 @@ function createProject(title, description, ...listObjects){
             this.list = [...listObjects];
         }
         
-        addObject(listObject){
-            this.list = [...this.list, listObject]
+        addObject(task){
+            this.list = [...this.list, task]
         }
 
     }
     return new Project(title, description, ...listObjects)
 }
 
-function createListObject(title, description, dueDate, priority){
+function createTask(title, description, dueDate, priority){
     
-    class listObject{
+    class Task{
         constructor(title, description, dueDate, priority){
             this.title = title;
             this.description = description;
@@ -37,7 +37,7 @@ function createListObject(title, description, dueDate, priority){
         }
         
     }
-    return new listObject(title,description,dueDate,priority);
+    return new Task(title,description,dueDate,priority);
 }
 
-export{createProject, createListObject}
+export{createProject, createTask}
