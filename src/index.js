@@ -1,10 +1,10 @@
-import createListObject from "./ListObject";
-import createProject from "./projects";
+import * as controller from "./app";
 
+const projects =[];
+const tasks = [];
+projects.push(controller.createProject('Home', 'all projects'));
+tasks.push(controller.createListObject('title', 'description', 'date', 'priorty'))
+projects[0].addObject(tasks[0])
 
-const allProjects = createProject('Home', 'all projects');
-const newItem = createListObject('title', 'description', 'date', 'priorty')
-allProjects.addObject(newItem)
-
-newItem.setTitle('NEW TITLE');
-console.log(allProjects)
+tasks[0].setTitle('NEW TITLE');
+console.log(projects)
