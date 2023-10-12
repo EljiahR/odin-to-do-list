@@ -7,17 +7,20 @@ function addProject(projectName, projectIndex){
     
 }
 
-function addTask(task, taskIndex){
-    let taskDiv = document.createElement('div');
-    taskDiv.classList.add('task')
-    taskDiv.dataset.key = taskIndex;
-    let taskTitle = document.createElement('h2');
-    taskTitle.innerText = task.title;
-    let taskDate = document.createElement('p');
-    taskDate.innerText = task.dueDate;
-    
-    taskDiv.append(taskTitle, taskDate);
-    document.querySelector('#content').appendChild(taskDiv)
+function displayTasks(taskList, fullList){
+    document.getElementById('content').innerHTML ='';
+    taskList.forEach(task =>{
+        let taskDiv = document.createElement('div');
+        taskDiv.classList.add('task')
+        taskDiv.dataset.key = fullList.indexOf(task);
+        let taskTitle = document.createElement('h2');
+        taskTitle.innerText = task.title;
+        let taskDate = document.createElement('p');
+        taskDate.innerText = task.dueDate;
+        
+        taskDiv.append(taskTitle, taskDate);
+        document.querySelector('#content').appendChild(taskDiv)
+    })
 }
 
 function toggleProjectMenu(){
@@ -27,4 +30,4 @@ function toggleProjectMenu(){
     
 }
 
-export{addProject, addTask, toggleProjectMenu}
+export{addProject, displayTasks, toggleProjectMenu}

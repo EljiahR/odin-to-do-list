@@ -3,9 +3,13 @@ import * as dom from "./dom";
 
 const projects =[];
 const tasks = [];
-projects.push(app.createProject('Home', 'all projects'));
-tasks.push(app.createTask('title', 'description', 'date', 'priorty'))
-projects[0].addObject(tasks[0])
+projects.push(app.createProject('Home', 'home projects'));
+tasks.push(app.createTask('To-Do Project', 'complete this project', 'date', 'priorty'))
+tasks.push(app.createTask('Floors', 'lay down new floors', 'date', 'priorty'))
+tasks.push(app.createTask('Paint', 'paint the walls', 'date', 'priorty'))
+tasks.push(app.createTask('Kitchen', 'clean kitchen', 'date', 'priorty'))
+tasks.push(app.createTask('Trash', 'take out trash', 'date', 'priorty'))
+projects[0].addObject(tasks[1],tasks[2],tasks[3],tasks[4])
 
 document.getElementById('add-project').addEventListener('click', (e)=>{
     e.preventDefault();
@@ -25,9 +29,16 @@ document.getElementById('project-form').addEventListener('submit', (e)=>{
     document.getElementById('project-form').reset();
 })
 
+document.querySelector('ul').addEventListener('click', (e)=>{
+    if(e.target.dataset.key){
+        
+        dom.displayTasks(projects[e.target.dataset.key].list, tasks)
+    }else{
+        dom.displayTasks(tasks, tasks)
+    }
+})
 
-tasks[0].setTitle('NEW TITLE');
 dom.addProject(projects[0].title, 0);
-dom.addTask(tasks[0],0)
+dom.displayTasks(tasks, tasks)
 
 console.log(projects)
