@@ -20,4 +20,11 @@ function addTask(task, taskIndex){
     document.querySelector('#content').appendChild(taskDiv)
 }
 
-export{addProject, addTask}
+function toggleProjectMenu(){
+
+    const projectMenu = document.getElementById('project-menu-overlay')
+    projectMenu.classList.contains('hidden') ? projectMenu.classList.remove('hidden') : projectMenu.classList.add('hidden')
+    
+}
+
+export{addProject, addTask, toggleProjectMenu}
