@@ -1,9 +1,15 @@
-function addProject(projectName, projectIndex){
-    let newProject = document.createElement('li');
-    newProject.innerText = projectName;
-    newProject.dataset.key = projectIndex
-
-    document.querySelector("#projects").appendChild(newProject)
+function displayProjects(projects){
+    projects.forEach((project, index) =>{
+        if(!document.querySelector(`.project[data-key='${index}']`)){
+            const newProject = document.createElement('li');
+            newProject.classList.add('project')
+            newProject.innerText = project.title;
+            newProject.dataset.key = index
+        
+            document.querySelector("#projects").appendChild(newProject)
+        }
+    })
+    
     
 }
 
@@ -30,4 +36,4 @@ function toggleProjectMenu(){
     
 }
 
-export{addProject, displayTasks, toggleProjectMenu}
+export{displayProjects, displayTasks, toggleProjectMenu}

@@ -4,6 +4,7 @@ import * as dom from "./dom";
 const projects =[];
 const tasks = [];
 projects.push(app.createProject('Home', 'home projects'));
+projects.push(app.createProject('Odin', 'odin projects'))
 tasks.push(app.createTask('To-Do Project', 'complete this project', 'date', 'priorty'))
 tasks.push(app.createTask('Floors', 'lay down new floors', 'date', 'priorty'))
 tasks.push(app.createTask('Paint', 'paint the walls', 'date', 'priorty'))
@@ -24,7 +25,7 @@ document.getElementById('project-form').addEventListener('submit', (e)=>{
     e.preventDefault();
     const newProjectName = document.querySelector('#project-name').value
     const index = projects.push(app.createProject(newProjectName, '')) - 1
-    dom.addProject(projects[index].title, index);
+    dom.displayProjects(projects);
     dom.toggleProjectMenu();
     document.getElementById('project-form').reset();
 })
@@ -38,7 +39,7 @@ document.querySelector('ul').addEventListener('click', (e)=>{
     }
 })
 
-dom.addProject(projects[0].title, 0);
+dom.displayProjects(projects);
 dom.displayTasks(tasks, tasks)
 
 console.log(projects)
