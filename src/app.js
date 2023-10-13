@@ -6,7 +6,7 @@ function createProject(title, description, ...listObjects){
             this.list = [...listObjects];
         }
         
-        addObject(...task){
+        addTask(...task){
             this.list = [...this.list, ...task]
         }
 

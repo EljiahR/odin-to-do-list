@@ -13,20 +13,29 @@ function displayProjects(projects){
     
 }
 
-function displayTasks(taskList, fullList){
-    document.getElementById('content').innerHTML ='';
+function displayTasks(taskList, fullList, projectTitle = 'All projects'){
+    document.getElementById('project-title').innerText = projectTitle;
+    const content = document.getElementById('content');
+    content.innerHTML ='';
+    
     taskList.forEach(task =>{
-        let taskDiv = document.createElement('div');
-        taskDiv.classList.add('task')
+        const taskDiv = document.createElement('div');
+        taskDiv.classList.add('task') 
         taskDiv.dataset.key = fullList.indexOf(task);
-        let taskTitle = document.createElement('h2');
+        
+        const taskTitle = document.createElement('h2');
         taskTitle.innerText = task.title;
-        let taskDate = document.createElement('p');
-        taskDate.innerText = task.dueDate;
+        
+        const taskDate = document.createElement('p');
+        taskDate.innerText = `Due: ${task.dueDate}`;
         
         taskDiv.append(taskTitle, taskDate);
-        document.querySelector('#content').appendChild(taskDiv)
+        content.appendChild(taskDiv)
     })
+    const newTaskButton = document.createElement('button');
+    newTaskButton.id = 'new-task-button';
+    content.appendChild(newTaskButton)
+
 }
 
 function toggleProjectMenu(){
@@ -36,4 +45,8 @@ function toggleProjectMenu(){
     
 }
 
-export{displayProjects, displayTasks, toggleProjectMenu}
+function toggleNewTask(){
+    document.getElementById('new-task-button').remove();
+}
+
+export{displayProjects, displayTasks, toggleProjectMenu, toggleNewTask}
