@@ -39,6 +39,7 @@ function handleNewProject(){
     document.getElementById('project-form').reset();
     console.log('tasks')
     dom.displayTasks(projects[index].list, tasks, projects[index].title)
+    addListenerToTaskButton();
 }
 
 //Clickable projects in sidebar
@@ -48,7 +49,7 @@ document.querySelector('#projects').addEventListener('click', (e)=>{
     }else{
         dom.displayTasks(tasks, tasks)
     }
-    addListenerToTaskButton()
+    addListenerToTaskButton();
 })
 
 function addListenerToTaskButton(){
@@ -56,7 +57,15 @@ function addListenerToTaskButton(){
         e.preventDefault();
         dom.toggleNewTask();
     })
+    
 }
+
+document.getElementById('content').addEventListener('click', (e)=>{
+    if(e.target.id === 'content'){
+        dom.toggleNewTask();
+        addListenerToTaskButton();
+    }
+})
 
 dom.displayProjects(projects);
 dom.displayTasks(tasks, tasks)
