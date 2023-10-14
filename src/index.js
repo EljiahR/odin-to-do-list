@@ -38,14 +38,14 @@ function handleNewProject(){
     dom.toggleProjectMenu();
     document.getElementById('project-form').reset();
     console.log('tasks')
-    dom.displayTasks(projects[index].list, tasks, projects[index].title)
+    dom.displayTasks(projects[index].list, tasks, projects[index].title, index)
     addListenerToTaskButton();
 }
 
 //Clickable projects in sidebar
 document.querySelector('#projects').addEventListener('click', (e)=>{
-    if(e.target.dataset.key){        
-        dom.displayTasks(projects[e.target.dataset.key].list, tasks, projects[e.target.dataset.key].title)
+    if(e.target.dataset.pid){        
+        dom.displayTasks(projects[e.target.dataset.pid].list, tasks, projects[e.target.dataset.pid].title, e.target.dataset.pid)
     }else{
         dom.displayTasks(tasks, tasks)
     }
@@ -56,12 +56,34 @@ function addListenerToTaskButton(){
     document.getElementById('new-task-button').addEventListener('click', (e)=>{
         e.preventDefault();
         dom.toggleNewTask();
+        if(document.getElementById('new-task-form-div')){
+            addListenerToTaskFormSubmit();
+        }
     })
-    
+}
+
+function addListenerToTaskFormSubmit(){
+    document.getElementById('new-task-form').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        
+        handleNewTask();
+    })
+}
+
+function handleNewTask(){
+    const newTaskName = document.querySelector('#new-task-title').value
+    const newTaskID = tasks.push(app.createTask(newTaskName,'','','')) - 1
+    const projectID = document.getElementById('project-title').dataset.pid
+    if(projectID !== ''){
+        projects[projectID].addTask(tasks[newTaskID])
+        dom.displayTasks(projects[projectID].list, tasks, projects[projectID].title, projectID)
+    }else{
+        dom.displayTasks(tasks, tasks)
+    }
 }
 
 document.getElementById('content').addEventListener('click', (e)=>{
-    if(e.target.id === 'content'){
+    if(e.target.id === 'content' && document.getElementById('new-task-form-div')){
         dom.toggleNewTask();
         addListenerToTaskButton();
     }
@@ -71,4 +93,3 @@ dom.displayProjects(projects);
 dom.displayTasks(tasks, tasks)
 addListenerToTaskButton()
 
-console.log(projects)

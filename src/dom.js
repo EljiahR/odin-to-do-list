@@ -1,10 +1,10 @@
 function displayProjects(projects){
     projects.forEach((project, index) =>{
-        if(!document.querySelector(`.project[data-key='${index}']`)){
+        if(!document.querySelector(`.project[data-pid='${index}']`)){
             const newProject = document.createElement('li');
             newProject.classList.add('project')
             newProject.innerText = project.title;
-            newProject.dataset.key = index
+            newProject.dataset.pid = index
         
             document.querySelector("#projects").appendChild(newProject)
         }
@@ -13,15 +13,16 @@ function displayProjects(projects){
     
 }
 
-function displayTasks(taskList, fullList, projectTitle = 'All projects'){
+function displayTasks(taskList, fullList, projectTitle = 'All projects', projectID = ''){
     document.getElementById('project-title').innerText = projectTitle;
+    document.getElementById('project-title').dataset.pid = projectID
     const content = document.getElementById('content');
     content.innerHTML ='';
     
     taskList.forEach(task =>{
         const taskDiv = document.createElement('div');
         taskDiv.classList.add('task') 
-        taskDiv.dataset.key = fullList.indexOf(task);
+        taskDiv.dataset.tid = fullList.indexOf(task);
         
         const taskTitle = document.createElement('h2');
         taskTitle.innerText = task.title;
@@ -56,6 +57,7 @@ function toggleNewTask(){
         newTaskFormDiv.id ='new-task-form-div'
         
         const newTaskForm = document.createElement('form')
+        newTaskForm.id = 'new-task-form'
 
         const taskTitleLabel = document.createElement('label')
         taskTitleLabel.innerText = 'Title: '
@@ -63,8 +65,15 @@ function toggleNewTask(){
         const taskTitle = document.createElement('input')
         taskTitle.type = 'text'
         taskTitle.id = 'new-task-title'
+        taskTitle.setAttribute('required','')
 
-        newTaskForm.append(taskTitleLabel,taskTitle)
+        const taskSubmit = document.createElement('button')
+        taskSubmit.type = 'submit'
+        taskSubmit.value = 'Submit'
+        taskSubmit.innerText = 'Submit'
+        taskSubmit.id = 'task-form-submit'
+
+        newTaskForm.append(taskTitleLabel,taskTitle, taskSubmit)
         newTaskFormDiv.appendChild(newTaskForm)
         content.appendChild(newTaskFormDiv)
     }else{
