@@ -57,10 +57,13 @@ a{
 
 .task{
     width: 100%;
-    display: flex;
+    display: grid;
     background-color: var(--task-color);
     border-radius: 10px;
     border: 2px solid black;
+}
+.expand {
+    grid-row: span 2;
 }
 
 .project-menu{
