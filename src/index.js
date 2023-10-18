@@ -72,7 +72,10 @@ function addListenerToTaskFormSubmit(){
 
 function handleNewTask(){
     const newTaskName = document.querySelector('#new-task-title').value
-    const newTaskID = tasks.push(app.createTask(newTaskName,'','','')) - 1
+    const newTaskDescription = document.querySelector('#new-task-description').value
+    const newTaskDueDate = document.querySelector('#new-task-due-date').value
+
+    const newTaskID = tasks.push(app.createTask(newTaskName,newTaskDescription,newTaskDueDate,'')) - 1
     const projectID = document.getElementById('project-title').dataset.pid
     if(projectID !== ''){
         projects[projectID].addTask(tasks[newTaskID])
@@ -86,6 +89,23 @@ document.getElementById('content').addEventListener('click', (e)=>{
     if(e.target.id === 'content' && document.getElementById('new-task-form-div')){
         dom.toggleNewTask();
         addListenerToTaskButton();
+    }
+})
+
+document.getElementById('content').addEventListener('click', (e)=>{
+    let target = e.target
+    const parent = target.parentElement
+    if(target.id == 'new-task-button' || target.id == 'task-form-submit'){return}
+    if(parent.classList.contains('task')){target = parent}
+    
+    if(target.classList.contains('task')){
+        if(target.classList.contains('expand')){
+            target.classList.remove('expand')
+            dom.removeDescription(target.dataset.tid)
+        } else {
+            dom.displayDescription(tasks[target.dataset.tid].description, target.dataset.tid)
+            target.classList.add('expand')
+        }
     }
 })
 
