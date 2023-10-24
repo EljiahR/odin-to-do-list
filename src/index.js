@@ -1,20 +1,40 @@
 import * as app from "./app";
 import * as dom from "./dom";
 
-const projects =[];
-const tasks = [];
+let projects =[];
+let tasks = [];
+//localStorage.clear()
 
-//Demo data, for testing purposes only
-projects.push(app.createProject('Home', 'home projects'));
-projects.push(app.createProject('Odin', 'odin projects'))
-tasks.push(app.createTask('To-Do Project', 'complete this project', 'date', 'priorty'))
-tasks.push(app.createTask('Floors', 'lay down new floors', 'date', 'priorty'))
-tasks.push(app.createTask('Paint', 'paint the walls', 'date', 'priorty'))
-tasks.push(app.createTask('Kitchen', 'clean kitchen', 'date', 'priorty'))
-tasks.push(app.createTask('Trash', 'take out trash', 'date', 'priorty'))
-projects[0].addTask(tasks[1],tasks[2],tasks[3],tasks[4])
-projects[1].addTask(tasks[0]);
-
+if(!localStorage.getItem('projects')){
+    
+    //Demo data, for testing purposes only
+    projects.push(app.createProject('Home', 'home projects'));
+    projects.push(app.createProject('Odin', 'odin projects'))
+    tasks.push(app.createTask('To-Do Project', 'complete this project', 'date', 'priorty'))
+    tasks.push(app.createTask('Floors', 'lay down new floors', 'date', 'priorty'))
+    tasks.push(app.createTask('Paint', 'paint the walls', 'date', 'priorty'))
+    tasks.push(app.createTask('Kitchen', 'clean kitchen', 'date', 'priorty'))
+    tasks.push(app.createTask('Trash', 'take out trash', 'date', 'priorty'))
+    projects[0].addTask(tasks[1],tasks[2],tasks[3],tasks[4])
+    projects[1].addTask(tasks[0]);
+}else{
+    
+    const savedProjects = JSON.parse(localStorage.getItem('projects'))
+    const savedTasks = JSON.parse(localStorage.getItem('tasks'))
+    savedTasks.forEach(task=> tasks.push(app.createTask(task.title, task.description, task.dueDate, task.priority)))
+    savedProjects.forEach((project, index)=> {
+        
+        projects.push(app.createProject(project.title, project.description))
+        
+        project.list.forEach(task =>{
+            const taskIndex = tasks.findIndex(item =>{
+                return item.title === task.title
+            })
+            projects[index].addTask(tasks[taskIndex])
+        })
+    })
+    
+}
 
 document.getElementById('add-project').addEventListener('click', (e)=>{
     e.preventDefault();
@@ -28,6 +48,7 @@ document.getElementById('project-menu-overlay').addEventListener('click',(e)=>{
 document.getElementById('project-form').addEventListener('submit', (e)=>{
     e.preventDefault();
     handleNewProject();
+    populateStorage()
 })
 
 //Gets project from form, adds it to project array
@@ -37,7 +58,7 @@ function handleNewProject(){
     dom.displayProjects(projects);
     dom.toggleProjectMenu();
     document.getElementById('project-form').reset();
-    console.log('tasks')
+    
     dom.displayTasks(projects[index].list, tasks, projects[index].title, index)
     addListenerToTaskButton();
 }
@@ -67,6 +88,7 @@ function addListenerToTaskFormSubmit(){
         e.preventDefault();
         
         handleNewTask();
+        populateStorage()
     })
 }
 
@@ -76,7 +98,9 @@ function handleNewTask(){
     const newTaskDueDate = document.querySelector('#new-task-due-date').value
 
     const newTaskID = tasks.push(app.createTask(newTaskName,newTaskDescription,newTaskDueDate,'')) - 1
+    
     const projectID = document.getElementById('project-title').dataset.pid
+    
     if(projectID !== ''){
         projects[projectID].addTask(tasks[newTaskID])
         dom.displayTasks(projects[projectID].list, tasks, projects[projectID].title, projectID)
@@ -112,4 +136,21 @@ document.getElementById('content').addEventListener('click', (e)=>{
 dom.displayProjects(projects);
 dom.displayTasks(tasks, tasks)
 addListenerToTaskButton()
+
+//local storage test
+
+
+
+function populateStorage(){
+   
+    
+    localStorage.setItem('projects', JSON.stringify(projects))
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    console.log(tasks)
+    console.log(JSON.parse(localStorage.getItem('tasks')))
+}
+
+
+
+
 
